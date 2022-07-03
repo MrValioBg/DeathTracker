@@ -1,0 +1,9 @@
+database:
+  saveDataInterval: 15
+  saveDataOnStop: true
+  credentials:
+    host: 127.0.0.1
+    port: 3306
+    username: root
+    db_name: statistics_tracking
+    password: secure9982passworD1
