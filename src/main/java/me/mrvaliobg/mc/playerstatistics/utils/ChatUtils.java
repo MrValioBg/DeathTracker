@@ -2,9 +2,9 @@ package me.mrvaliobg.mc.playerstatistics.utils;
 
 import org.bukkit.ChatColor;
 
-public class ChatUtils  {
+public final class ChatUtils {
 
-    ChatUtils() {
+    private ChatUtils() {
     }
 
     public static String colorize(String text) {
