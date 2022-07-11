@@ -7,14 +7,12 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class DeathCounter extends StatisticsWrapper {
 
     public DeathCounter() {
-        super("Death Count");
+        super("Death Count", "death_count");
     }
-
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        // TODO document why this method is empty
+        super.addCount(event.getEntity().getUniqueId().toString());
     }
-
 
 }

@@ -17,7 +17,7 @@ public class Methods {
 
     public static final ExecutorService EXECUTOR_SERVICE = Executors.newWorkStealingPool(10);
 
-    static void executeQuery(final String query) {
+    public static void executeQuery(final String query) {
         EXECUTOR_SERVICE.submit(() -> {
             try (Connection connection = getConnection();
                  Statement statement = connection != null ? connection.createStatement() : null) {
