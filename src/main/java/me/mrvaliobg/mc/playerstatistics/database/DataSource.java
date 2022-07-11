@@ -13,11 +13,13 @@ public enum DataSource {
     private HikariConfig config;
     private HikariDataSource dataSrc;
 
+    private String databaseName;
+
     public void init(final String host, final String username, final String database, final String password, final String port) {
-        if(config!=null){
+        if (config != null) {
             config.getScheduledExecutor().shutdown();
         }
-        if(dataSrc !=null){
+        if (dataSrc != null) {
             dataSrc.close();
         }
         config = new HikariConfig();
@@ -25,13 +27,18 @@ public enum DataSource {
         config.setUsername(username);
         config.setPassword(password);
         config.setPoolName("PlayerStats-DB");
-        config.addDataSourceProperty( "cachePrepStmts" , "true" );
-        config.addDataSourceProperty( "prepStmtCacheSize" , "252560" );
-        config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "252560");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         dataSrc = new HikariDataSource(config);
+        this.databaseName = database;
     }
 
     public Connection getConnection() throws SQLException {
         return dataSrc.getConnection();
+    }
+
+    public String getDatabaseName() {
+        return this.databaseName;
     }
 }

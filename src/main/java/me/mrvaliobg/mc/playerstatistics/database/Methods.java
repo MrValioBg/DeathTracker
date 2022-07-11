@@ -13,9 +13,9 @@ import java.util.logging.Logger;
 public class Methods {
 
     private static final Logger LOGGER  = new ClassLogger(Methods.class);
-    static final String DATABASE_ERROR = "Database connection error occurred";
+    public static final String DATABASE_ERROR = "Database connection error occurred";
 
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newWorkStealingPool(10);
+    public static final ExecutorService EXECUTOR_SERVICE = Executors.newWorkStealingPool(10);
 
     static void executeQuery(final String query) {
         EXECUTOR_SERVICE.submit(() -> {
@@ -30,7 +30,7 @@ public class Methods {
         });
     }
 
-    static ResultSet executeStatement(final PreparedStatement preparedStatement) {
+    public static ResultSet executeStatement(final PreparedStatement preparedStatement) {
         final Future<ResultSet> submit = EXECUTOR_SERVICE.submit(() -> {
             ResultSet resultSet = null;
             try {
@@ -48,7 +48,7 @@ public class Methods {
         return null;
     }
 
-    static Connection getConnection() {
+    public static Connection getConnection() {
         try {
             return DataSource.INSTANCE.getConnection();
         } catch (SQLException e) {
