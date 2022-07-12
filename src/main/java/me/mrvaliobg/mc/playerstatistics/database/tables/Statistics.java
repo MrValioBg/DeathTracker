@@ -28,7 +28,7 @@ public final class Statistics {
     private Statistics() {
     }
 
-    public static int getInt(final String uuid, final String statisticsType) {
+    public static int getStatisticsIntData(final String uuid, final String statisticsType) {
         int blocksPlaced = 0;
         ResultSet resultSet = null;
         try (Connection connection = Methods.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(replaceData(SELECT, statisticsType))) {
@@ -50,7 +50,7 @@ public final class Statistics {
         return blocksPlaced;
     }
 
-    public static void setInt(final String uuid, final int statisticsValue, final String statisticsType) {
+    public static void setStatisticsIntData(final String uuid, final int statisticsValue, final String statisticsType) {
         if (!contains(uuid, statisticsType)) {
             insertPlayer(uuid, statisticsType, statisticsValue);
         }
@@ -93,7 +93,7 @@ public final class Statistics {
             if (resultSet != null) {
                 while (resultSet.next()) {
                     final String uuidPlayer = resultSet.getString(1);
-                    statisticsData.put(uuidPlayer, getInt(uuidPlayer, statisticsType));
+                    statisticsData.put(uuidPlayer, getStatisticsIntData(uuidPlayer, statisticsType));
                 }
 
             }

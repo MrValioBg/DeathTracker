@@ -5,20 +5,21 @@ import me.mrvaliobg.mc.playerstatistics.database.interfaces.IDatabaseManager;
 import me.mrvaliobg.mc.playerstatistics.logging.ClassLogger;
 import me.mrvaliobg.mc.playerstatistics.statistics.DeathCounter;
 import me.mrvaliobg.mc.playerstatistics.statistics.wrapper.StatisticsWrapper;
-import org.bukkit.Bukkit;
+import me.mrvaliobg.mc.playerstatistics.utils.ListenersUtils;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class StatisticsManager {
+public enum StatisticsManager {
 
+    INSTANCE;
     private final Set<StatisticsWrapper> listenersToRegister = new HashSet<>();
     private final IDatabaseManager databaseManager = new DatabaseManager();
-    private final Logger logger;
+    private Logger logger;
 
-    public StatisticsManager() {
+    public void init() {
         this.logger = new ClassLogger(StatisticsManager.class);
         registerWrappers();
 
@@ -37,12 +38,12 @@ public class StatisticsManager {
         logger.log(Level.INFO, "Registering statistics types.");
     }
 
-    public void registerStat(StatisticsWrapper statsWrapper) {
+    private void registerStat(StatisticsWrapper statsWrapper) {
         listenersToRegister.add(statsWrapper);
     }
 
     public void registerListeners() {
-        ListenersManager.registerListeners(listenersToRegister);
+        ListenersUtils.registerListeners(listenersToRegister);
     }
 
 }

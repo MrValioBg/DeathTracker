@@ -8,11 +8,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public enum Configuration {
-    INSTANCE;
+public class Configuration {
 
-    private JavaPlugin plugin;
-    private FileConfiguration config;
+    private final JavaPlugin plugin;
+    private final FileConfiguration config;
 
     private String host;
     private String port;
@@ -22,7 +21,7 @@ public enum Configuration {
     private int saveDataIntervalInMinutes;
     private boolean saveDataOnStop;
 
-    public void init(JavaPlugin plugin) {
+    public Configuration(JavaPlugin plugin) {
         plugin.saveDefaultConfig();
         this.plugin = plugin;
         this.config = plugin.getConfig();

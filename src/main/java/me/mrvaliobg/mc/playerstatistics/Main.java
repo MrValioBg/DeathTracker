@@ -1,31 +1,40 @@
 package me.mrvaliobg.mc.playerstatistics;
 
+import me.mrvaliobg.mc.playerstatistics.commands.PlayerStatCommand;
 import me.mrvaliobg.mc.playerstatistics.configuration.Configuration;
 import me.mrvaliobg.mc.playerstatistics.database.DataSource;
 import me.mrvaliobg.mc.playerstatistics.statistics.managers.StatisticsManager;
 import me.mrvaliobg.mc.playerstatistics.utils.ScheduleUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public class Main extends JavaPlugin {
 
-
-    private StatisticsManager statisticsManager;
-    private Configuration instance;
+    private final StatisticsManager statisticsManager = StatisticsManager.INSTANCE;
+    private Configuration config;
 
     @Override
     public void onEnable() {
-        instance = Configuration.INSTANCE;
-        instance.init(this);
-        DataSource.INSTANCE.init(instance.getHost(), instance.getUsername(), instance.getDbName(), instance.getPassword(), instance.getPort());
+        config = new Configuration(this);
+        new DataSource(
+                config.getHost(),
+                config.getUsername(),
+                config.getDbName(),
+                config.getPassword(),
+                config.getPort());
 
-        statisticsManager = new StatisticsManager();
-        final int intervalInSeconds = instance.getSaveDataIntervalInMinutes() * 60;
-        ScheduleUtils.createScheduledTask(new StatsSavingTask(), intervalInSeconds, intervalInSeconds);
+        statisticsManager.init();
+
+        final int interval = config.getSaveDataIntervalInMinutes() * 60;
+        ScheduleUtils.createScheduledTask(new StatsSavingTask(), interval, interval);
+
+        Objects.requireNonNull(this.getCommand("stats")).setExecutor(new PlayerStatCommand());
     }
 
     @Override
     public void onDisable() {
-        if (instance.isSaveDataOnStop()) {
+        if (config.isSaveDataOnStop()) {
             statisticsManager.updateStatistics();
         }
     }

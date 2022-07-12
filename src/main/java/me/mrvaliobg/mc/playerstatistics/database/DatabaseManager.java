@@ -20,7 +20,7 @@ public class DatabaseManager implements IDatabaseManager {
     public void updateStatistics(Set<StatisticsWrapper> listStats) {
         for (StatisticsWrapper wrapper : listStats) {
             for (Map.Entry<String, Integer> entry : wrapper.getPlayersStats().entrySet()) {
-                Statistics.setInt(entry.getKey(), entry.getValue(), wrapper.getDbColumnName());
+                Statistics.setStatisticsIntData(entry.getKey(), entry.getValue(), wrapper.getDbColumnName());
             }
         }
     }

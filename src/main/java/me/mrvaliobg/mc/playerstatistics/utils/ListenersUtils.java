@@ -1,4 +1,4 @@
-package me.mrvaliobg.mc.playerstatistics.statistics.managers;
+package me.mrvaliobg.mc.playerstatistics.utils;
 
 import me.mrvaliobg.mc.playerstatistics.statistics.wrapper.StatisticsWrapper;
 import org.bukkit.Bukkit;
@@ -8,9 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collection;
 
-public final class ListenersManager {
+public final class ListenersUtils {
 
-    private ListenersManager(){}
+    private ListenersUtils(){}
 
     public static void registerListeners(Collection<StatisticsWrapper> listeners) {
         final PluginManager pluginManager = Bukkit.getPluginManager();

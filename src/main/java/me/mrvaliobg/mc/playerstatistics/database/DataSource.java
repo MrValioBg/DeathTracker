@@ -6,16 +6,14 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public enum DataSource {
-
-    INSTANCE;
+public class DataSource {
 
     private HikariConfig config;
     private HikariDataSource dataSrc;
 
-    private String databaseName;
+    private final String databaseName;
 
-    public void init(final String host, final String username, final String database, final String password, final String port) {
+    public DataSource(final String host, final String username, final String database, final String password, final String port) {
         if (config != null) {
             config.getScheduledExecutor().shutdown();
         }
