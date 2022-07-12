@@ -3,3 +3,6 @@ author: MrValioBg
 main: me.mrvaliobg.mc.playerstatistics.Main
 version: 1.0.0
 api-version: 1.19
+commands:
+  stats:
+    description: "Statistics command"

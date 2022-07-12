@@ -1,6 +1,5 @@
 package me.mrvaliobg.mc.playerstatistics.database;
 
-import me.mrvaliobg.mc.playerstatistics.database.source.DataSource;
 import me.mrvaliobg.mc.playerstatistics.logging.ClassLogger;
 
 import java.sql.*;
@@ -51,7 +50,7 @@ public class Methods {
 
     public static Connection getConnection() {
         try {
-            return DataSource.INSTANCE.getConnection();
+            return DataSource.getConnection();
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, DATABASE_ERROR, e);
             return null;

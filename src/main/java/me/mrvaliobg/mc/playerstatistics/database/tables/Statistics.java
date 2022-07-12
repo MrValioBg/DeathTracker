@@ -1,6 +1,6 @@
 package me.mrvaliobg.mc.playerstatistics.database.tables;
 
-import me.mrvaliobg.mc.playerstatistics.database.source.DataSource;
+import me.mrvaliobg.mc.playerstatistics.database.DataSource;
 import me.mrvaliobg.mc.playerstatistics.database.Methods;
 import me.mrvaliobg.mc.playerstatistics.logging.ClassLogger;
 
@@ -20,10 +20,10 @@ import static me.mrvaliobg.mc.playerstatistics.database.Methods.EXECUTOR_SERVICE
 public final class Statistics {
 
     private static final Logger LOGGER = new ClassLogger(Statistics.class);
-    private static final String SELECT = "SELECT <STAT> FROM " + DataSource.INSTANCE.getDatabaseName() + ".main_statistics WHERE player_uuid = ?;";
-    private static final String SELECT_ALL = "SELECT player_uuid FROM " + DataSource.INSTANCE.getDatabaseName() + ".main_statistics;";
-    private static final String UPDATE = "UPDATE " + DataSource.INSTANCE.getDatabaseName() + ".main_statistics SET <STAT> = ? WHERE player_uuid = ?;";
-    private static final String INSERT = "INSERT INTO " + DataSource.INSTANCE.getDatabaseName() + ".main_statistics SET player_uuid = '?', `<STAT>` = '?';";
+    private static final String SELECT = "SELECT <STAT> FROM " + DataSource.getDatabaseName() + ".main_statistics WHERE player_uuid = ?;";
+    private static final String SELECT_ALL = "SELECT player_uuid FROM " + DataSource.getDatabaseName() + ".main_statistics;";
+    private static final String UPDATE = "UPDATE " + DataSource.getDatabaseName() + ".main_statistics SET <STAT> = ? WHERE player_uuid = ?;";
+    private static final String INSERT = "INSERT INTO " + DataSource.getDatabaseName() + ".main_statistics SET player_uuid = '?', `<STAT>` = '?';";
 
     private Statistics() {
     }
