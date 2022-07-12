@@ -1,6 +1,6 @@
 package me.mrvaliobg.mc.playerstatistics.database.tables;
 
-import me.mrvaliobg.mc.playerstatistics.database.DataSource;
+import me.mrvaliobg.mc.playerstatistics.database.source.DataSource;
 import me.mrvaliobg.mc.playerstatistics.database.Methods;
 import me.mrvaliobg.mc.playerstatistics.logging.ClassLogger;
 

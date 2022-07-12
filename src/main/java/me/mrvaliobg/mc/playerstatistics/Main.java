@@ -2,7 +2,7 @@ package me.mrvaliobg.mc.playerstatistics;
 
 import me.mrvaliobg.mc.playerstatistics.commands.PlayerStatCommand;
 import me.mrvaliobg.mc.playerstatistics.configuration.Configuration;
-import me.mrvaliobg.mc.playerstatistics.database.DataSource;
+import me.mrvaliobg.mc.playerstatistics.database.source.DataSource;
 import me.mrvaliobg.mc.playerstatistics.statistics.managers.StatisticsManager;
 import me.mrvaliobg.mc.playerstatistics.utils.ScheduleUtils;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,7 +17,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         config = new Configuration(this);
-        new DataSource(
+        DataSource.INSTANCE.init(
                 config.getHost(),
                 config.getUsername(),
                 config.getDbName(),

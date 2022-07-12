@@ -1,5 +1,6 @@
 package me.mrvaliobg.mc.playerstatistics.database;
 
+import me.mrvaliobg.mc.playerstatistics.database.source.DataSource;
 import me.mrvaliobg.mc.playerstatistics.logging.ClassLogger;
 
 import java.sql.*;

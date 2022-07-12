@@ -1,4 +1,4 @@
-package me.mrvaliobg.mc.playerstatistics.database;
+package me.mrvaliobg.mc.playerstatistics.database.source;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -6,14 +6,16 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DataSource {
+public enum DataSource {
+
+    INSTANCE;
 
     private HikariConfig config;
     private HikariDataSource dataSrc;
 
-    private final String databaseName;
+    private String databaseName;
 
-    public DataSource(final String host, final String username, final String database, final String password, final String port) {
+    public void init(final String host, final String username, final String database, final String password, final String port) {
         if (config != null) {
             config.getScheduledExecutor().shutdown();
         }
