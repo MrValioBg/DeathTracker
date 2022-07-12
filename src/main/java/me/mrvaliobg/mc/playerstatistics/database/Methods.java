@@ -10,8 +10,11 @@ import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Methods {
+public final class Methods {
 
+    private Methods() {
+
+    }
     private static final Logger LOGGER  = new ClassLogger(Methods.class);
     public static final String DATABASE_ERROR = "Database connection error occurred";
 
