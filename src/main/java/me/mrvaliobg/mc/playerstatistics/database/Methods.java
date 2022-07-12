@@ -12,13 +12,13 @@ import java.util.logging.Logger;
 
 public final class Methods {
 
+    public static final String DATABASE_ERROR = "Database connection error occurred";
+    public static final ExecutorService EXECUTOR_SERVICE = Executors.newWorkStealingPool(10);
+    private static final Logger LOGGER = new ClassLogger(Methods.class);
+
     private Methods() {
 
     }
-    private static final Logger LOGGER  = new ClassLogger(Methods.class);
-    public static final String DATABASE_ERROR = "Database connection error occurred";
-
-    public static final ExecutorService EXECUTOR_SERVICE = Executors.newWorkStealingPool(10);
 
     public static void executeQuery(final String query) {
         EXECUTOR_SERVICE.submit(() -> {
