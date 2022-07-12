@@ -11,8 +11,7 @@ public final class ScheduleUtils {
 
     public static void createScheduledTask(final TimerTask runnable,final int intervalInSeconds) {
         Timer timer = new Timer();
-
-        // Schedule to run after every 3 second(3000 millisecond)
-        timer.schedule(runnable, intervalInSeconds* 1000L);
+        final long period = intervalInSeconds * 1000L;
+        timer.scheduleAtFixedRate(runnable, period, period);
     }
 }
