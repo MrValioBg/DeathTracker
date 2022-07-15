@@ -17,7 +17,8 @@ import java.util.logging.Logger;
 public enum StatisticsManager {
 
     INSTANCE;
-    private final Set<StatisticsWrapper> listenersToRegister = new HashSet<>();
+
+    private final Set<StatisticsWrapper> listeners = new HashSet<>();
     private final IDatabaseManager databaseManager = new DatabaseManager();
     private Logger logger;
 
@@ -25,37 +26,35 @@ public enum StatisticsManager {
         this.logger = new ClassLogger(StatisticsManager.class);
         registerWrappers();
 
-        databaseManager.loadDataFromDB(listenersToRegister);
+        databaseManager.loadDataFromDB(listeners);
         logger.log(Level.INFO, "Initializing the StatisticsManager and loading database records.");
     }
 
     public void updateStatistics() {
-        databaseManager.updateStatistics(listenersToRegister);
+        databaseManager.updateStatistics(listeners);
         logger.log(Level.INFO, "Updating database records.");
+    }
+
+    public Map<String, Integer> getPlayerStats(String uuid) {
+        final Map<String, Integer> allStats = new HashMap<>();
+
+        listeners.forEach(listener -> {
+            final Map<String, Integer> stats = listener.getPlayersStats();
+            if (stats.containsKey(uuid)) {
+                allStats.put(listener.getName(), stats.get(uuid));
+            }
+        });
+        return allStats;
     }
 
     private void registerWrappers() {
         registerStat(new DeathCounter());
-        registerListeners();
+        ListenersUtils.registerListeners(listeners);
+
         logger.log(Level.INFO, "Registering statistics types.");
     }
 
     private void registerStat(StatisticsWrapper statsWrapper) {
-        listenersToRegister.add(statsWrapper);
-    }
-
-    public void registerListeners() {
-        ListenersUtils.registerListeners(listenersToRegister);
-    }
-
-    public Map<String, Integer> getPlayerStats(String uuid) {
-        final Map<String, Integer> allStatsForPlayer = new HashMap<>();
-        for (StatisticsWrapper wrapper : listenersToRegister) {
-            final Map<String, Integer> playersStat = wrapper.getPlayersStats();
-            if (playersStat.containsKey(uuid)) {
-                allStatsForPlayer.put(wrapper.getName(), playersStat.get(uuid));
-            }
-        }
-        return allStatsForPlayer;
+        listeners.add(statsWrapper);
     }
 }

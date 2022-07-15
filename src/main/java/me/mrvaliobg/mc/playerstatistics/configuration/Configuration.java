@@ -10,44 +10,45 @@ import java.util.logging.Logger;
 
 public class Configuration {
 
-    private final JavaPlugin plugin;
     private final FileConfiguration config;
 
+    /* Database Connection Settings */
     private String host;
     private String port;
     private String username;
     private String dbName;
     private String password;
+
+    /* Database Additional Settings */
     private int saveDataIntervalInMinutes;
     private boolean saveDataOnStop;
 
     public Configuration(JavaPlugin plugin) {
         plugin.saveDefaultConfig();
-        this.plugin = plugin;
         this.config = plugin.getConfig();
 
-        final Logger logger = new ClassLogger(Configuration.class);
-        final ConfigurationSection settingsSection = getConfig().getConfigurationSection("database");
-        final ConfigurationSection credentialsSection = getConfig().getConfigurationSection("database.credentials");
-        if (credentialsSection == null || settingsSection == null) {
+        final ConfigurationSection settings = getConfig().getConfigurationSection("database");
+        final ConfigurationSection credentials = getConfig().getConfigurationSection("database.credentials");
+
+        if (credentials == null || settings == null) {
+            final Logger logger = new ClassLogger(Configuration.class);
             logger.log(Level.SEVERE, "Problem getting database configuration!");
             return;
         }
 
-        this.host = credentialsSection.getString("host");
-        this.port = credentialsSection.getString("port");
-        this.username = credentialsSection.getString("username");
-        this.dbName = credentialsSection.getString("dbName");
-        this.password = credentialsSection.getString("password");
+        this.host = credentials.getString("host");
+        this.port = credentials.getString("port");
+        this.username = credentials.getString("username");
+        this.dbName = credentials.getString("dbName");
+        this.password = credentials.getString("password");
 
-        this.saveDataIntervalInMinutes = settingsSection.getInt("saveDataIntervalInMinutes");
-        this.saveDataOnStop = settingsSection.getBoolean("saveDataOnStop");
+        this.saveDataIntervalInMinutes = settings.getInt("saveDataIntervalInMinutes");
+        this.saveDataOnStop = settings.getBoolean("saveDataOnStop");
     }
 
     private FileConfiguration getConfig() {
         return this.config;
     }
-
 
     public int getSaveDataIntervalInMinutes() {
         return saveDataIntervalInMinutes;
