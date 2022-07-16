@@ -17,7 +17,8 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        config = new Configuration(this);
+        config = Configuration.INSTANCE;
+        config.init(this);
 
         DataSource.init(
                 config.getHost(),

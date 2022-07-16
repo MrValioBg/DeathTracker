@@ -36,8 +36,8 @@ public enum StatisticsManager {
     }
 
     public Map<String, Integer> getPlayerStats(String uuid) {
-        final Map<String, Integer> allStats = new HashMap<>();
 
+        final Map<String, Integer> allStats = new HashMap<>();
         listeners.forEach(listener -> {
             final Map<String, Integer> stats = listener.getPlayersStats();
             if (stats.containsKey(uuid)) {
@@ -50,7 +50,6 @@ public enum StatisticsManager {
     private void registerWrappers() {
         registerStat(new DeathCounter());
         ListenersUtils.registerListeners(listeners);
-
         logger.log(Level.INFO, "Registering statistics types.");
     }
 

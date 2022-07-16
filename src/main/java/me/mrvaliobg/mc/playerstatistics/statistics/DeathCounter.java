@@ -15,4 +15,6 @@ public class DeathCounter extends StatisticsWrapper {
         super.addCount(event.getEntity().getUniqueId().toString());
     }
 
+
+
 }

@@ -65,25 +65,6 @@ public final class Statistics {
         });
     }
 
-    private static boolean contains(final String uuid, final String statisticsType) {
-        boolean contains = false;
-        ResultSet resultSet = null;
-        try (Connection connection = Methods.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(replaceData(SELECT, statisticsType))) {
-            preparedStatement.setString(1, uuid);
-            resultSet = Methods.executeStatement(preparedStatement);
-            contains = resultSet != null && resultSet.next();
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, DATABASE_ERROR, e);
-        } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException ignored) {
-                }
-            }
-        }
-        return contains;
-    }
 
     public static Map<String, Integer> getAllDataForStat(final String statisticsType) {
         final Map<String, Integer> statisticsData = new HashMap<>();
@@ -107,6 +88,26 @@ public final class Statistics {
         String query = replaceData(INSERT.replaceFirst(Pattern.quote("?"), uuid).replaceFirst(Pattern.quote("?"), String.valueOf(statisticValue)), statisticsType);
         Methods.executeQuery(query);
         System.out.println("" + INSERT);
+    }
+
+    private static boolean contains(final String uuid, final String statisticsType) {
+        boolean contains = false;
+        ResultSet resultSet = null;
+        try (Connection connection = Methods.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(replaceData(SELECT, statisticsType))) {
+            preparedStatement.setString(1, uuid);
+            resultSet = Methods.executeStatement(preparedStatement);
+            contains = resultSet != null && resultSet.next();
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, DATABASE_ERROR, e);
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException ignored) {
+                }
+            }
+        }
+        return contains;
     }
 
     private static String replaceData(final String statement, final String data) {

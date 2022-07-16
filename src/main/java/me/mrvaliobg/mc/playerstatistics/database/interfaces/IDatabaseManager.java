@@ -9,5 +9,4 @@ public interface IDatabaseManager {
     void loadDataFromDB(Set<StatisticsWrapper> listStats);
 
     void updateStatistics(Set<StatisticsWrapper> listStats);
-
 }
