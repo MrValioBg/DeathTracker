@@ -18,7 +18,7 @@ public class PlayerStatCommand implements CommandExecutor {
             final String uuid = player.getUniqueId() + "";
 
             statisticsManager.getPlayerStats(uuid).forEach((key, value) ->
-                    player.sendMessage(ChatUtils.colorize("&c" + key + " = &a&l" + value)));
+                    player.sendMessage(ChatUtils.colorize("&c" + key + " = &a" + value)));
         } else {
             commandSender.sendMessage(ChatUtils.colorize("&cYou are not a player, thus you do not have those stats!"));
         }
