@@ -7,9 +7,6 @@ import java.util.Map;
 
 public abstract class StatisticsWrapper implements Listener {
 
-    //Statistic should be able to have command for checking top 3 players who have those statistics
-    //Statistic examples: sheep killed, mobs killed, players killed, blocks mined
-    //Save statistics to DB interval (get information from config) / save only on disable plugin
     private final String statName;
     private final String dbColumnName;
     private Map<String, Integer> playersStats;
