@@ -5,6 +5,7 @@ import me.mrvaliobg.mc.playerstatistics.configuration.Configuration;
 import me.mrvaliobg.mc.playerstatistics.database.DataSource;
 import me.mrvaliobg.mc.playerstatistics.statistics.managers.StatisticsManager;
 import me.mrvaliobg.mc.playerstatistics.utils.ScheduleUtils;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -26,13 +27,18 @@ public class Main extends JavaPlugin {
                 config.getDbName(),
                 config.getPassword(),
                 config.getPort());
-
         statisticsManager.init();
 
-        final int interval = config.getSaveDataIntervalInMinutes() * 60;
-        ScheduleUtils.createScheduledTask(new StatsSavingTask(), interval);
+        final CommandExecutor executor = new PlayerStatCommand();
+        Objects.requireNonNull(getCommand("stats")).setExecutor(executor);
 
-        Objects.requireNonNull(this.getCommand("stats")).setExecutor(new PlayerStatCommand());
+        ScheduleUtils.createScheduledTask(new TimerTask() {
+            @Override
+            public void run() {
+                statisticsManager.updateStatistics();
+            }
+        }, config.getSaveDataIntervalInMinutes() * 60);
+
     }
 
     @Override
@@ -41,12 +47,4 @@ public class Main extends JavaPlugin {
             statisticsManager.updateStatistics();
         }
     }
-
-    class StatsSavingTask extends TimerTask {
-        @Override
-        public void run() {
-            statisticsManager.updateStatistics();
-        }
-    }
-
 }

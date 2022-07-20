@@ -9,9 +9,9 @@ public final class ScheduleUtils {
 
     }
 
-    public static void createScheduledTask(final TimerTask runnable,final int intervalInSeconds) {
+    public static void createScheduledTask(final TimerTask task,final int intervalInSeconds) {
         Timer timer = new Timer();
         final long period = intervalInSeconds * 1000L;
-        timer.scheduleAtFixedRate(runnable, period, period);
+        timer.scheduleAtFixedRate(task, period, period);
     }
 }
