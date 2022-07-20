@@ -4,6 +4,7 @@ import me.mrvaliobg.mc.playerstatistics.database.DatabaseManager;
 import me.mrvaliobg.mc.playerstatistics.database.interfaces.IDatabaseManager;
 import me.mrvaliobg.mc.playerstatistics.logging.ClassLogger;
 import me.mrvaliobg.mc.playerstatistics.statistics.DeathCounter;
+import me.mrvaliobg.mc.playerstatistics.statistics.SheepKilledCounter;
 import me.mrvaliobg.mc.playerstatistics.statistics.wrapper.StatisticsWrapper;
 import me.mrvaliobg.mc.playerstatistics.utils.ListenersUtils;
 
@@ -49,6 +50,8 @@ public enum StatisticsManager {
 
     private void registerWrappers() {
         registerStat(new DeathCounter());
+        registerStat(new SheepKilledCounter());
+
         ListenersUtils.registerListeners(listeners);
         logger.log(Level.INFO, "Registering statistics types.");
     }
