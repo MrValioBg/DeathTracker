@@ -10,7 +10,7 @@ public final class DataSource {
 
     private DataSource() {
     }
-
+    
     private static String databaseName;
     private static HikariDataSource dataSrc;
     private static HikariConfig config;

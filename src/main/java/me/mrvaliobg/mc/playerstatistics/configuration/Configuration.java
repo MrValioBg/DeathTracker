@@ -1,5 +1,6 @@
 package me.mrvaliobg.mc.playerstatistics.configuration;
 
+import lombok.Getter;
 import me.mrvaliobg.mc.playerstatistics.logging.ClassLogger;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -7,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+@Getter
 public enum Configuration {
 
     INSTANCE;
@@ -46,38 +47,6 @@ public enum Configuration {
 
         this.saveDataIntervalInMinutes = settings.getInt("saveDataIntervalInMinutes");
         this.saveDataOnStop = settings.getBoolean("saveDataOnStop");
-    }
-
-    private FileConfiguration getConfig() {
-        return this.config;
-    }
-
-    public int getSaveDataIntervalInMinutes() {
-        return saveDataIntervalInMinutes;
-    }
-
-    public boolean isSaveDataOnStop() {
-        return saveDataOnStop;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public String getPort() {
-        return port;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getDbName() {
-        return dbName;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
 }

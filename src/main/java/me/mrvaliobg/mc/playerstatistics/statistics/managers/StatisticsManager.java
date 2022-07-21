@@ -42,7 +42,7 @@ public enum StatisticsManager {
         listeners.forEach(listener -> {
             final Map<String, Integer> stats = listener.getPlayersStats();
             if (stats.containsKey(uuid)) {
-                allStats.put(listener.getName(), stats.get(uuid));
+                allStats.put(listener.getStatName(), stats.get(uuid));
             }
         });
         return allStats;
