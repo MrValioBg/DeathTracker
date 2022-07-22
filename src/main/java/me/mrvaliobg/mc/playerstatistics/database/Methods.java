@@ -1,20 +1,18 @@
 package me.mrvaliobg.mc.playerstatistics.database;
 
-import me.mrvaliobg.mc.playerstatistics.logging.ClassLogger;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+@Slf4j
 public final class Methods {
 
     public static final String DATABASE_ERROR = "Database connection error occurred";
     public static final ExecutorService EXECUTOR_SERVICE = Executors.newWorkStealingPool(10);
-    private static final Logger LOGGER = new ClassLogger(Methods.class);
 
     private Methods() {
 
@@ -28,7 +26,7 @@ public final class Methods {
                     statement.execute(query);
                 }
             } catch (SQLException e) {
-                LOGGER.log(Level.SEVERE, DATABASE_ERROR + " " + query, e);
+                log.error(DATABASE_ERROR + " " + query, e);
             }
         });
     }
@@ -39,14 +37,14 @@ public final class Methods {
             try {
                 resultSet = preparedStatement.executeQuery();
             } catch (SQLException e) {
-                LOGGER.log(Level.SEVERE, DATABASE_ERROR, e);
+                log.error(DATABASE_ERROR, e);
             }
             return resultSet;
         });
         try {
             return submit.get();
         } catch (InterruptedException | ExecutionException e) {
-            LOGGER.log(Level.SEVERE, DATABASE_ERROR, e);
+            log.error(DATABASE_ERROR, e);
         }
         return null;
     }
@@ -55,7 +53,7 @@ public final class Methods {
         try {
             return DataSource.getConnection();
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, DATABASE_ERROR, e);
+            log.error(DATABASE_ERROR, e);
             return null;
         }
     }

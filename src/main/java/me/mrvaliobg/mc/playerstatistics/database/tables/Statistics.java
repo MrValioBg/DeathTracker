@@ -1,8 +1,8 @@
 package me.mrvaliobg.mc.playerstatistics.database.tables;
 
+import lombok.extern.slf4j.Slf4j;
 import me.mrvaliobg.mc.playerstatistics.database.DataSource;
 import me.mrvaliobg.mc.playerstatistics.database.Methods;
-import me.mrvaliobg.mc.playerstatistics.logging.ClassLogger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,16 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import static me.mrvaliobg.mc.playerstatistics.database.Methods.DATABASE_ERROR;
 import static me.mrvaliobg.mc.playerstatistics.database.Methods.EXECUTOR_SERVICE;
 
+@Slf4j
 public final class Statistics {
 
-    private static final Logger LOGGER = new ClassLogger(Statistics.class);
     private static final String SELECT = "SELECT <STAT> FROM " + DataSource.getDatabaseName() + ".main_statistics WHERE player_uuid = ?;";
     private static final String SELECT_ALL = "SELECT player_uuid FROM " + DataSource.getDatabaseName() + ".main_statistics;";
     private static final String UPDATE = "UPDATE " + DataSource.getDatabaseName() + ".main_statistics SET <STAT> = ? WHERE player_uuid = ?;";
@@ -38,7 +36,7 @@ public final class Statistics {
                 blocksPlaced = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, DATABASE_ERROR, e);
+            log.error(DATABASE_ERROR, e);
         } finally {
             if (resultSet != null) {
                 try {
@@ -60,7 +58,7 @@ public final class Statistics {
                 statement.setString(2, uuid);
                 statement.execute();
             } catch (SQLException e) {
-                LOGGER.log(Level.SEVERE, DATABASE_ERROR, e);
+                log.error(DATABASE_ERROR, e);
             }
         });
     }
@@ -79,7 +77,7 @@ public final class Statistics {
 
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, DATABASE_ERROR, e);
+            log.error(DATABASE_ERROR, e);
         }
         return statisticsData;
     }
@@ -98,7 +96,7 @@ public final class Statistics {
             resultSet = Methods.executeStatement(preparedStatement);
             contains = resultSet != null && resultSet.next();
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, DATABASE_ERROR, e);
+            log.error(DATABASE_ERROR, e);
         } finally {
             if (resultSet != null) {
                 try {
