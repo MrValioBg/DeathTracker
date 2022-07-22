@@ -3,6 +3,7 @@ package me.mrvaliobg.mc.playerstatistics.statistics.managers;
 import me.mrvaliobg.mc.playerstatistics.database.DatabaseManager;
 import me.mrvaliobg.mc.playerstatistics.database.interfaces.IDatabaseManager;
 import me.mrvaliobg.mc.playerstatistics.logging.ClassLogger;
+import me.mrvaliobg.mc.playerstatistics.statistics.CowsKilledCounter;
 import me.mrvaliobg.mc.playerstatistics.statistics.DeathCounter;
 import me.mrvaliobg.mc.playerstatistics.statistics.SheepKilledCounter;
 import me.mrvaliobg.mc.playerstatistics.statistics.wrapper.StatisticsWrapper;
@@ -51,6 +52,7 @@ public enum StatisticsManager {
     private void registerWrappers() {
         registerStat(new DeathCounter());
         registerStat(new SheepKilledCounter());
+        registerStat(new CowsKilledCounter());
 
         ListenersUtils.registerListeners(listeners);
         logger.log(Level.INFO, "Registering statistics types.");
