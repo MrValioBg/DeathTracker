@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 public enum StatisticsManager {
 
     INSTANCE;
-
     private final Set<StatisticsWrapper> listeners = new HashSet<>();
     private final IDatabaseManager databaseManager = new DatabaseManager();
     private Logger logger;

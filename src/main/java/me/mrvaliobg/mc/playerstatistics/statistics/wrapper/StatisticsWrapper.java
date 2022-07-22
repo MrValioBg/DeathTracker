@@ -1,25 +1,20 @@
 package me.mrvaliobg.mc.playerstatistics.statistics.wrapper;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.bukkit.event.Listener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter @Setter
+@Getter @Setter @RequiredArgsConstructor
 public abstract class StatisticsWrapper implements Listener {
 
     private final String statName;
     private final String dbColumnName;
-    private Map<String, Integer> playersStats;
+    private Map<String, Integer> playersStats = new HashMap<>();
     private int counter;
-
-    protected StatisticsWrapper(final String stat_name, final String dbColumnName) {
-        this.statName = stat_name;
-        this.dbColumnName = dbColumnName;
-        playersStats = new HashMap<>();
-    }
 
     protected void addCount(String uuid) {
         counter = counter + 1;
