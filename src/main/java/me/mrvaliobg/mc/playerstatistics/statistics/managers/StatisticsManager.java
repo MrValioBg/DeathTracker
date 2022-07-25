@@ -3,6 +3,7 @@ package me.mrvaliobg.mc.playerstatistics.statistics.managers;
 import lombok.extern.slf4j.Slf4j;
 import me.mrvaliobg.mc.playerstatistics.database.DatabaseManager;
 import me.mrvaliobg.mc.playerstatistics.database.interfaces.IDatabaseManager;
+import me.mrvaliobg.mc.playerstatistics.statistics.BlocksBrokenCounter;
 import me.mrvaliobg.mc.playerstatistics.statistics.CowsKilledCounter;
 import me.mrvaliobg.mc.playerstatistics.statistics.DeathCounter;
 import me.mrvaliobg.mc.playerstatistics.statistics.SheepKilledCounter;
@@ -49,6 +50,7 @@ public enum StatisticsManager {
         registerStat(new DeathCounter());
         registerStat(new SheepKilledCounter());
         registerStat(new CowsKilledCounter());
+        registerStat(new BlocksBrokenCounter());
 
         ListenersUtils.registerListeners(listeners);
         log.info("Registering statistics types.");
