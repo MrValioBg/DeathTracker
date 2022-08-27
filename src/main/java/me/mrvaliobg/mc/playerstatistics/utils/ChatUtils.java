@@ -11,7 +11,4 @@ public final class ChatUtils {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
-    public static ChatUtils getInstance() {
-        return null;
-    }
 }
