@@ -4,12 +4,11 @@ import me.mrvaliobg.mc.playerstatistics.commands.PlayerStatCommand;
 import me.mrvaliobg.mc.playerstatistics.configuration.Configuration;
 import me.mrvaliobg.mc.playerstatistics.database.DataSource;
 import me.mrvaliobg.mc.playerstatistics.statistics.managers.StatisticsManager;
-import me.mrvaliobg.mc.playerstatistics.utils.ScheduleUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
-import java.util.TimerTask;
 
 public class Main extends JavaPlugin {
 
@@ -21,6 +20,7 @@ public class Main extends JavaPlugin {
         config = Configuration.INSTANCE;
         config.init(this);
 
+        //Create Connection with the DataBase
         DataSource.init(
                 config.getHost(),
                 config.getUsername(),
@@ -29,16 +29,13 @@ public class Main extends JavaPlugin {
                 config.getPort());
         statisticsManager.init();
 
+        //Register Commands
         final CommandExecutor executor = new PlayerStatCommand();
         Objects.requireNonNull(getCommand("stats")).setExecutor(executor);
 
-        ScheduleUtils.createScheduledTask(new TimerTask() {
-            @Override
-            public void run() {
-                statisticsManager.updateStatistics();
-            }
-        }, config.getSaveDataIntervalInMinutes() * 60);
-
+        //Setup Task for updating the database
+        final int timeInTicks = config.getSaveDataIntervalInMinutes() * 60 * 20;
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, statisticsManager::updateStatistics, timeInTicks, timeInTicks);
     }
 
     @Override
@@ -47,4 +44,6 @@ public class Main extends JavaPlugin {
             statisticsManager.updateStatistics();
         }
     }
+
+
 }

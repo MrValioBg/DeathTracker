@@ -24,6 +24,7 @@ public final class Statistics {
     private static final String INSERT = "INSERT INTO " + DataSource.getDatabaseName() + ".main_statistics SET player_uuid = '?', `<STAT>` = '?';";
 
     private Statistics() {
+
     }
 
     public static int getStatisticsIntData(final String uuid, final String statisticsType) {

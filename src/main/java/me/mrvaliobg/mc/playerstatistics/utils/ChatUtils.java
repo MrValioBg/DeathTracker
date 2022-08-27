@@ -10,4 +10,8 @@ public final class ChatUtils {
     public static String colorize(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
+
+    public static ChatUtils getInstance() {
+        return null;
+    }
 }

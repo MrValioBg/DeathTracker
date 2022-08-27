@@ -23,7 +23,7 @@ public enum StatisticsManager {
     private final IDatabaseManager databaseManager = new DatabaseManager();
 
     public void init() {
-        registerWrappers();
+        registerStatistics();
 
         databaseManager.loadDataFromDB(listeners);
         log.info("Initializing the StatisticsManager and loading database records.");
@@ -46,7 +46,7 @@ public enum StatisticsManager {
         return allStats;
     }
 
-    private void registerWrappers() {
+    private void registerStatistics() {
         registerStat(new DeathCounter());
         registerStat(new SheepKilledCounter());
         registerStat(new CowsKilledCounter());
